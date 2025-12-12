@@ -17,7 +17,7 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          path: './docusaurus/docs',
+          path: './docs',  // Changed from './docusaurus/docs' to './docs'
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/aamna847/Humanoid-Robotic-Book/edit/main/',
           showLastUpdateAuthor: false,

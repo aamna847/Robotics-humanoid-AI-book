@@ -1,10 +1,9 @@
-import React from 'react';
 import {DocProvider} from '@docusaurus/theme-common/internal';
 import DocItem from '@theme/DocItem';
 
 // Custom layout without navbar for documentation pages
 export default function CustomDocPage(props) {
-  const {content: DocContent, versionMetadata} = props;
+  const {content: DocContent} = props;
 
   if (DocContent) {
     return (

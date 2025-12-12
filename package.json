@@ -16,8 +16,8 @@
     "gh-pages": "gh-pages -d build -b gh-pages -r https://github.com/aamna847/Humanoid-Robotic-Book.git"
   },
   "dependencies": {
-    "@docusaurus/core": "3.1.0",
-    "@docusaurus/preset-classic": "3.1.0",
+    "@docusaurus/core": "^3.9.2",
+    "@docusaurus/preset-classic": "^3.9.2",
     "@docusaurus/theme-search-algolia": "^3.1.0",
     "@mdx-js/react": "^3.0.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
