@@ -1,0 +1,23 @@
+# ManipulationPlanner.srv
+# Plans manipulation actions for robot arms/grippers to interact with objects
+
+# Request
+string robot_id               # Identifier of the manipulating robot
+string manipulation_type      # Type of manipulation action
+                        # Values: "grasp", "place", "move", "retract", "custom"
+ObjectInfo target_object      # Information about the target object (required for "grasp" and "place")
+geometry_msgs/Pose target_pose # Target pose for end effector or object (required for "place" and "move")
+string arm_name               # Name of the arm to use (default: "main_arm")
+string grasp_strategy         # Strategy for grasping (for "grasp" actions)
+                        # Values: "top_grasp", "side_grasp", "pinch_grasp", "wrap_grasp" (default: "top_grasp")
+string end_effector           # Name of the end effector to use (default: "gripper")
+geometry_msgs/Vector3 approach_direction # Direction to approach the target from (default: [0, 0, 1])
+
+---
+# Response
+bool success                  # Indicates if the manipulation planning was successful
+string message                # Additional information about the result
+trajectory_msgs/JointTrajectory trajectory # Planned joint trajectory for the manipulation
+ManipulationInfo planner_info # Additional information about the manipulation planning process
+float64 estimated_time        # Estimated time to execute the trajectory (seconds)
+float64 grasp_success_probability # Estimated probability of grasp success (for grasp actions)

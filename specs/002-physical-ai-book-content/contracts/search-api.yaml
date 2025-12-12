@@ -1,0 +1,197 @@
+# Search API Contract
+
+## Overview
+This document specifies the API contract for the search functionality in the Physical AI & Humanoid Robotics educational content site.
+
+## Base Path
+All search API endpoints are accessed relative to the base path determined by the Docusaurus configuration.
+
+## Endpoints
+
+### Search Content
+`GET /api/search`
+
+Searches through the book content for the given query.
+
+#### Parameters
+| Name | Type | In | Required | Description |
+|------|------|----|----------|-------------|
+| q | string | query | true | The search query string |
+| limit | integer | query | false | Maximum number of results to return (default: 10, max: 50) |
+| offset | integer | query | false | Number of results to skip (for pagination) |
+| type | string | query | false | Filter results by type: 'heading', 'section', 'content', 'module' (default: all types) |
+
+#### Request Headers
+| Header | Value | Required | Description |
+|--------|-------|----------|-------------|
+| Accept | application/json | true | Client expects JSON response |
+| Content-Type | application/json | false | Required if request body is included |
+
+#### Example Request
+```
+GET /api/search?q=ROS+navigation&limit=20 HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+```
+
+#### Response 200 (Success)
+```json
+{
+  "query": "ROS navigation",
+  "took": 15,
+  "total": 12,
+  "results": [
+    {
+      "id": "001",
+      "title": "Visual SLAM & Navigation (Nav2)",
+      "contentSnippet": "Visual SLAM & Navigation (Nav2) Chapter 9 of the Physical AI & Humanoid Robotics textbook...",
+      "url": "/docs/part-4-the-ai-brain/chapter-9-nav2",
+      "docSection": "Chapter 9",
+      "docPart": "Part 4: The AI Brain",
+      "relevanceScore": 0.95,
+      "resultType": "chapter"
+    },
+    {
+      "id": "002",
+      "title": "Building ROS 2 Nodes with Python",
+      "contentSnippet": "In this chapter we explore building ROS 2 nodes for navigation systems...",
+      "url": "/docs/part-2-the-nervous-system/chapter-4-ros2-nodes",
+      "docSection": "Chapter 4",
+      "docPart": "Part 2: The Nervous System",
+      "relevanceScore": 0.87,
+      "resultType": "chapter"
+    }
+  ]
+}
+```
+
+#### Response 400 (Bad Request)
+```json
+{
+  "error": {
+    "code": "INVALID_QUERY",
+    "message": "Search query must be at least 2 characters long"
+  }
+}
+```
+
+#### Response 500 (Internal Server Error)
+```json
+{
+  "error": {
+    "code": "SEARCH_ERROR",
+    "message": "An error occurred while performing the search"
+  }
+}
+```
+
+### Get Search Suggestions
+`GET /api/search/suggestions`
+
+Provides search suggestions based on the partial query.
+
+#### Parameters
+| Name | Type | In | Required | Description |
+|------|------|----|----------|-------------|
+| q | string | query | true | The partial search query string |
+| limit | integer | query | false | Maximum number of suggestions to return (default: 5, max: 10) |
+
+#### Example Request
+```
+GET /api/search/suggestions?q=ROS HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+```
+
+#### Response 200 (Success)
+```json
+{
+  "query": "ROS",
+  "suggestions": [
+    "ROS 2 Architecture",
+    "ROS 2 Nodes",
+    "ROS Navigation",
+    "ROS Simulation"
+  ]
+}
+```
+
+### Get Search Configuration
+`GET /api/search/config`
+
+Retrieves the current search configuration.
+
+#### Example Request
+```
+GET /api/search/config HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+```
+
+#### Response 200 (Success)
+```json
+{
+  "enabled": true,
+  "minQueryLength": 2,
+  "maxResults": 50,
+  "searchScopes": [
+    "title",
+    "content",
+    "headings"
+  ],
+  "accessibilityFeatures": {
+    "ariaLabels": {
+      "searchInput": "Search Physical AI & Robotics Documentation",
+      "searchButton": "Submit Search",
+      "searchResults": "Search Results",
+      "resultItem": "Search result for: {{title}}",
+      "clearSearch": "Clear Search Query"
+    },
+    "keyboardShortcuts": {
+      "focusSearch": "Ctrl+K",
+      "selectResult": "Enter",
+      "navigateResultsUp": "ArrowUp",
+      "navigateResultsDown": "ArrowDown",
+      "closeResults": "Escape"
+    },
+    "focusManagement": {
+      "restoreFocus": true
+    },
+    "screenReaderSupport": true
+  }
+}
+```
+
+## Error Codes
+| Code | HTTP Status | Description |
+|------|-------------|-------------|
+| INVALID_QUERY | 400 | The search query is invalid (e.g., too short) |
+| SEARCH_ERROR | 500 | An internal error occurred during search |
+| RATE_LIMITED | 429 | The client has exceeded the rate limit for search requests |
+
+## Authentication
+The search API endpoints do not require authentication and are publicly accessible.
+
+## Rate Limiting
+- Anonymous users: 100 requests per hour per IP
+- Authenticated users: 500 requests per hour per user
+
+## Data Schema Definitions
+
+### SearchResult
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| id | string | true | Unique identifier for the search result |
+| title | string | true | Title of the page/section containing the match |
+| contentSnippet | string | true | Excerpt from the content that contains the match |
+| url | string | true | URL to the relevant page/section |
+| docSection | string | true | Name of the section in which the result appears |
+| docPart | string | true | Name of the part (parent section) |
+| relevanceScore | number | true | Score indicating how relevant the result is to the query (0.0 to 1.0) |
+| resultType | string | true | Type of result: 'heading', 'section', 'content', 'module' |
+
+## Implementation Notes
+1. The search functionality should be implemented using Algolia DocSearch as specified in the implementation plan
+2. Accessibility features must be fully implemented following WCAG 2.1 AA guidelines
+3. The API should be performant with search results returned within 100ms
+4. The search index should be updated whenever new content is added to the documentation

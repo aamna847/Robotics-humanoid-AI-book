@@ -1,0 +1,19 @@
+# NavigationPlanner.srv
+# Plans navigation paths for robots in known or partially known environments
+
+# Request
+string robot_id               # Identifier of the navigating robot
+geometry_msgs/Pose start_pose # Starting pose of the robot
+geometry_msgs/Pose target_pose # Target pose for navigation
+string map_name               # Name of the map to use for planning (default: "current_map")
+string planner_id             # ID of the specific planner to use (default: "GridBased")
+float64 tolerance             # Tolerance for reaching target position (meters) (default: 0.5)
+
+---
+# Response
+bool success                  # Indicates if the path planning was successful
+string message                # Additional information about the result
+nav_msgs/Path path            # Planned navigation path
+PlannerInfo planner_info      # Additional information about the planning process
+float64 estimated_time        # Estimated time to follow the path at default speed (seconds)
+float64 path_length           # Length of the planned path (meters)

@@ -1,0 +1,108 @@
+/* Header styling with dark/light mode support */
+
+.header {
+  padding: 1rem;
+  width: 100%;
+  z-index: 100;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-link {
+  display: block;
+}
+
+.logo-wrapper {
+  width: 120px;
+  height: 120px;
+  transition: transform 0.3s ease;
+}
+
+.logo-wrapper:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+.physical-ai-logo {
+  width: 100%;
+  height: 100%;
+}
+
+.logo-stroke {
+  stroke: #00FFFF;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 2px #00FFFF);
+  transition: all 0.3s ease;
+}
+
+.logo-text {
+  filter: drop-shadow(0 0 2px #00FFFF);
+  transition: all 0.3s ease;
+}
+
+.logo-wrapper:hover .logo-stroke,
+.logo-wrapper:hover .logo-text {
+  stroke: #00DDFF;
+  filter: 
+    drop-shadow(0 0 4px #00FFFF)
+    drop-shadow(0 0 8px #00FFFF)
+    drop-shadow(0 0 12px #00FFFF);
+}
+
+/* Dark mode styles */
+.header.dark .logo-stroke,
+.header.dark .logo-text {
+  stroke: #00FFFF;
+  fill: #00FFFF;
+}
+
+.header.dark .logo-wrapper:hover .logo-stroke,
+.header.dark .logo-wrapper:hover .logo-text {
+  stroke: #00FFFF;
+  filter: 
+    drop-shadow(0 0 4px #00FFFF)
+    drop-shadow(0 0 8px #00FFFF)
+    drop-shadow(0 0 12px #00FFFF);
+}
+
+/* Light mode styles */
+.header.light .logo-stroke,
+.header.light .logo-text {
+  stroke: #009999;
+  fill: #009999;
+}
+
+.header.light .logo-wrapper:hover .logo-stroke,
+.header.light .logo-wrapper:hover .logo-text {
+  stroke: #00FFFF;
+  filter: 
+    drop-shadow(0 0 4px #00FFFF)
+    drop-shadow(0 0 8px #00FFFF)
+    drop-shadow(0 0 12px #00FFFF);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .logo-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+}

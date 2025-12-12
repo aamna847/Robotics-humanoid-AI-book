@@ -1,0 +1,32 @@
+/* Ensure Tailwind is properly integrated */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Additional custom styles */
+.bg-cyberpunk-gradient {
+  background: linear-gradient(135deg, #0a0a12 0%, #000000 100%);
+}
+
+.text-cyber-cyan {
+  color: #00FFFF;
+}
+
+.text-purple-accent {
+  color: #7F4FFF;
+}
+
+.glow-cyan {
+  filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.7));
+}
+
+.glow-purple {
+  filter: drop-shadow(0 0 8px rgba(127, 79, 255, 0.7));
+}
+
+.glass-morphism {
+  background: rgba(30, 30, 40, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

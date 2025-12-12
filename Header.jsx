@@ -1,0 +1,147 @@
+import React, { useState, useEffect } from 'react';
+
+const Header = () => {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check system preference for dark mode
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setDarkMode(prefersDark);
+    
+    // Listen for system theme changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e) => setDarkMode(e.matches);
+    
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  return (
+    <header className={`header ${darkMode ? 'dark' : 'light'} bg-white dark:bg-gray-900 transition-colors duration-300`}>
+      <nav className="navbar max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="logo-container flex-shrink-0">
+            <a href="/" className="logo-link block">
+              <div className="logo-wrapper w-16 h-16 transition-transform duration-300 hover:scale-110">
+                {/* Physical AI Logo - Single SVG element */}
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  viewBox="0 0 100 100" 
+                  className="w-full h-full"
+                >
+                  <defs>
+                    <filter id="glow">
+                      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                      <feMerge> 
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                    <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/>
+                      <feFlood flood-color="#00FFFF" flood-opacity="0.8" result="glowColor"/>
+                      <feComposite in="glowColor" in2="blur" operator="in" result="glow"/>
+                      <feMerge>
+                        <feMergeNode in="glow"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                    <linearGradient id="cyanGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#00FFFF" />
+                      <stop offset="100%" stopColor="#009999" />
+                    </linearGradient>
+                  </defs>
+                  
+                  {/* Main body path - single continuous line that transforms into circuits and joints */}
+                  <path 
+                    d="M50,25 
+                       C55,25 55,30 50,30 
+                       C45,30 45,25 50,25 
+                       L50,45 
+                       M50,45 L35,55 
+                       M50,45 L65,55 
+                       M50,45 L50,70 
+                       M50,70 L40,85 
+                       M50,70 L60,85
+                       M35,55 
+                       Q30,50 32,45
+                       Q34,40 37,42
+                       Q40,44 38,48
+                       Q36,52 35,55
+                       M65,55
+                       Q70,50 68,45
+                       Q66,40 63,42
+                       Q60,44 62,48
+                       Q64,52 65,55
+                       M40,85
+                       Q35,80 37,75
+                       Q39,70 42,72
+                       Q45,74 43,78
+                       Q41,82 40,85
+                       M60,85
+                       Q65,80 63,75
+                       Q61,70 58,72
+                       Q55,74 57,78
+                       Q59,82 60,85" 
+                    stroke="url(#cyanGradient)"
+                    strokeWidth="1.5"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    filter="url(#neonGlow)"
+                    className="logo-stroke"
+                  />
+                  
+                  {/* Circuit details */}
+                  <circle cx="50" cy="28" r="1" fill="none" stroke="url(#cyanGradient)" strokeWidth="0.5" filter="url(#neonGlow)" />
+                  <circle cx="45" cy="53" r="0.7" fill="none" stroke="url(#cyanGradient)" strokeWidth="0.4" filter="url(#neonGlow)" />
+                  <circle cx="55" cy="53" r="0.7" fill="none" stroke="url(#cyanGradient)" strokeWidth="0.4" filter="url(#neonGlow)" />
+                  <path d="M48,65 L52,65 M49,63 L51,63" stroke="url(#cyanGradient)" strokeWidth="0.5" filter="url(#neonGlow)" />
+                  
+                  {/* Text */}
+                  <text 
+                    x="50" 
+                    y="95" 
+                    textAnchor="middle" 
+                    fontSize="8" 
+                    fontWeight="bold"
+                    fill="url(#cyanGradient)"
+                    filter="url(#neonGlow)"
+                    fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+                    className="logo-text"
+                  >
+                    Physical AI
+                  </text>
+                </svg>
+              </div>
+            </a>
+          </div>
+          <div className="nav-menu flex items-center space-x-4">
+            {/* Navigation items would go here */}
+          </div>
+        </div>
+      </nav>
+      
+      <style jsx>{`
+        .header {
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header.dark {
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .logo-stroke {
+          transition: all 0.3s ease;
+        }
+        .logo-wrapper:hover .logo-stroke,
+        .logo-wrapper:hover .logo-text {
+          filter: 
+            drop-shadow(0 0 4px #00FFFF)
+            drop-shadow(0 0 8px #00FFFF)
+            drop-shadow(0 0 12px #00FFFF);
+        }
+      `}</style>
+    </header>
+  );
+};
+
+export default Header;

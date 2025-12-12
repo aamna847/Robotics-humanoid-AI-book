@@ -1,0 +1,499 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom properties for the light theme */
+:root {
+  /* Primary Colors (Electric Cyan to Purple Gradient) */
+  --electric-cyan: #00FFFF;
+  --purple-accent: #7F4FFF;
+  --navy-black: #0A0F1C;
+  --electric-cyan-grad: linear-gradient(90deg, #00FFFF 0%, #7F4FFF 100%);
+
+  /* Electric Cyan Range */
+  --electric-cyan-50: #f0fdff;
+  --electric-cyan-100: #cdf9fe;
+  --electric-cyan-200: #aaf4fe;
+  --electric-cyan-300: #7ceeff;
+  --electric-cyan-400: #4de8ff;
+  --electric-cyan-500: #00FFFF; /* Primary electric cyan */
+  --electric-cyan-600: #00d3d3;
+  --electric-cyan-700: #00a6a6;
+  --electric-cyan-800: #007a7a;
+  --electric-cyan-900: #005e5e;
+
+  /* Purple Accent Range */
+  --purple-accent-50: #f7f5ff;
+  --purple-accent-100: #f0ebff;
+  --purple-accent-200: #e1d6ff;
+  --purple-accent-300: #cbb7fb;
+  --purple-accent-400: #b497f7;
+  --purple-accent-500: #7F4FFF; /* Primary purple accent */
+  --purple-accent-600: #733EFF;
+  --purple-accent-700: #5c2ced;
+  --purple-accent-800: #451daa;
+  --purple-accent-900: #361585;
+
+  /* Navy Black Range */
+  --navy-black-50: #ecedf1;
+  --navy-black-100: #d1d3dc;
+  --navy-black-200: #b5b8c6;
+  --navy-black-300: #989da0;
+  --navy-black-400: #7c828e;
+  --navy-black-500: #3C425B;
+  --navy-black-600: #2d3247;
+  --navy-black-700: #1e2233;
+  --navy-black-800: #0f121f;
+  --navy-black-900: #0A0F1C; /* Primary navy black */
+
+  /* Gradients */
+  --gradient-electric-purple: linear-gradient(90deg, #00FFFF 0%, #7F4FFF 100%);
+  --gradient-purple-electric: linear-gradient(90deg, #7F4FFF 0%, #00FFFF 100%);
+
+  /* Color shortcuts specifically for this project */
+  --electric-cyan: #00FFFF;
+  --purple-accent: #7F4FFF;
+  --navy-black: #0A0F1C;
+  --electric-purple-gradient: linear-gradient(90deg, #00FFFF 0%, #7F4FFF 100%);
+
+  /* Ensure Docusaurus variables use our custom colors */
+  --ifm-color-primary: #00FFFF;        /* electric-cyan-500 */
+  --ifm-color-primary-dark: #00d3d3;   /* electric-cyan-600 */
+  --ifm-color-primary-darker: #00a6a6; /* electric-cyan-700 */
+  --ifm-color-primary-darkest: #007a7a; /* electric-cyan-800 */
+  --ifm-color-primary-light: #4de8ff;   /* electric-cyan-400 */
+  --ifm-color-primary-lighter: #7ceeff; /* electric-cyan-300 */
+  --ifm-color-primary-lightest: #aaf4fe; /* electric-cyan-200 */
+  
+  /* Rest of the theme variables */
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 1.5;
+  --ifm-spacing-horizontal: 1rem;
+  --ifm-spacing-vertical: 1rem;
+  --ifm-global-radius: 0.25rem;
+  --ifm-z-index-dropdown: 100;
+  --ifm-z-index-fixed: 101;
+  --ifm-z-index-overlay: 102;
+  --ifm-container-width: 1140px;
+  --ifm-container-width-xl: 1320px;
+  --ifm-hover-overlay: rgba(0, 0, 0, 0.05);
+  --ifm-color-success: #00d365;
+  --ifm-color-info: #00d3d3;
+  --ifm-color-warning: #ffcc33;
+  --ifm-color-danger: #ff3333;
+
+  /* Backgrounds */
+  --ifm-background-color: #0A0F1C; /* Navy black background */
+  --ifm-background-surface-color: #121826; /* Slightly lighter for surfaces */
+
+  /* Text Colors */
+  --ifm-heading-color: #7F4FFF; /* Purple for headings */
+  --ifm-text-color: #e4e5e6; /* Light gray for text */
+  --ifm-text-color-subtle: #999ca0; /* More subtle gray for secondary text */
+
+  /* Navbar */
+  --ifm-navbar-background-color: #0A0F1C;
+  --ifm-navbar-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  --ifm-navbar-padding-horizontal: 1rem;
+  --ifm-navbar-padding-vertical: 0.75rem;
+
+  /* Footer */
+  --ifm-footer-background-color: #080c16;
+  --ifm-footer-color: #e4e5e6;
+  --ifm-footer-link-color: #999ca0;
+
+  /* Cards */
+  --ifm-card-background-color: #121826;
+  --ifm-card-border-radius: 8px;
+
+  /* Alerts */
+  --ifm-alert-border-left-width: 4px;
+
+  /* Code blocks */
+  --ifm-code-background: #171717;
+  --ifm-code-border-radius: 0.2rem;
+  --ifm-pre-background: #171717;
+  --ifm-pre-color: #ffffff;
+  --ifm-pre-line-height: 1.4;
+
+  /* Buttons */
+  --ifm-button-background-color: #007bff;
+  --ifm-button-border-radius: 4px;
+  --ifm-button-color: #ffffff;
+  --ifm-button-font-size: 14px;
+  --ifm-button-padding-horizontal: 16px;
+  --ifm-button-padding-vertical: 8px;
+
+  /* Toc (Table of Contents) */
+  --ifm-toc-border-color: #eee;
+  --ifm-toc-padding-horizontal: 20px;
+
+  /* Sidebar */
+  --ifm-menu-color: #c9cdd1;
+  --ifm-menu-color-active: #7F4FFF; /* Purple for active items */
+  --ifm-menu-color-hover: #00FFFF; /* Electric cyan for hover */
+  --ifm-menu-background-color-hover: #1a1f2a;
+
+  /* Tabs */
+  --ifm-tabs-padding-horizontal: 16px;
+  --ifm-tabs-padding-vertical: 12px;
+  --ifm-tabs-color: #c9cdd1;
+  --ifm-tabs-color-active: #7F4FFF; /* Purple for active tabs */
+  --ifm-tabs-color-hover: #00FFFF; /* Electric cyan for hover */
+
+  /* Pagination */
+  --ifm-pagination-border-radius: 4px;
+  --ifm-pagination-color: #c9cdd1;
+  --ifm-pagination-active-color: #7F4FFF; /* Purple for active pagination */
+
+  /* Admonitions */
+  --ifm-admonition-color: #e1e1e1;
+  --ifm-admonition-background: #1a1f2a;
+  --ifm-admonition-border-left-width: 4px;
+
+  /* Avatar */
+  --ifm-avatar-intro-radius: 50%;
+
+  /* Breadcrumbs */
+  --ifm-breadcrumb-link-color-active: #7F4FFF; /* Purple for active breadcrumb */
+  --ifm-breadcrumb-size-multiplier: 1;
+
+  /* Dropdown */
+  --ifm-dropdown-background-color: #1a1f2a;
+
+  /* Heading */
+  --ifm-h1-font-size: 2.5rem;
+  --ifm-h2-font-size: 2rem;
+  --ifm-h3-font-size: 1.75rem;
+  --ifm-h4-font-size: 1.5rem;
+  --ifm-h5-font-size: 1.25rem;
+  --ifm-h6-font-size: 1rem;
+}
+
+/* Dark theme overrides that match light theme for consistency */
+html[data-theme='dark'] {
+  /* Primary Colors */
+  --electric-cyan: #00FFFF;
+  --purple-accent: #B36CFF;
+  --navy-black: #0A0F1C;
+  --electric-purple-gradient: linear-gradient(90deg, #00FFFF 0%, #B36CFF 100%);
+
+  /* Electric Cyan Range for Dark Mode */
+  --electric-cyan-50: #0a5a5a;
+  --electric-cyan-100: #0c6b6b;
+  --electric-cyan-200: #0e7c7c;
+  --electric-cyan-300: #108d8d;
+  --electric-cyan-400: #129f9f;
+  --electric-cyan-500: #00FFFF; /* Primary electric cyan */
+  --electric-cyan-600: #00d3d3;
+  --electric-cyan-700: #00a6a6;
+  --electric-cyan-800: #007a7a;
+  --electric-cyan-900: #005e5e;
+
+  /* Purple Accent Range for Dark Mode */
+  --purple-accent-50: #1e1a2a;
+  --purple-accent-100: #2c2340;
+  --purple-accent-200: #3a2c56;
+  --purple-accent-300: #49366c;
+  --purple-accent-400: #573f82;
+  --purple-accent-500: #7F4FFF; /* Primary purple accent */
+  --purple-accent-600: #936CFF;
+  --purple-accent-700: #a88dff;
+  --purple-accent-800: #bdadff;
+  --purple-accent-900: #d1cdff;
+
+  /* Navy Black Range for Dark Mode */
+  --navy-black-50: #0a0f1c;
+  --navy-black-100: #131a2a;
+  --navy-black-200: #1c2539;
+  --navy-black-300: #253048;
+  --navy-black-400: #2e3b57;
+  --navy-black-500: #3c4a6a;
+  --navy-black-600: #4a5a7d;
+  --navy-black-700: #586a90;
+  --navy-black-800: #677aa3;
+  --navy-black-900: #758ab6;
+
+  /* Dark mode base colors keeping the same theme */
+  --ifm-color-primary: #00FFFF;        /* electric-cyan-500 */
+  --ifm-color-primary-dark: #00d3d3;   /* electric-cyan-600 */
+  --ifm-color-primary-darker: #00a6a6; /* electric-cyan-700 */
+  --ifm-color-primary-darkest: #007a7a; /* electric-cyan-800 */
+  --ifm-color-primary-light: #4de8ff;   /* electric-cyan-400 */
+  --ifm-color-primary-lighter: #7ceeff; /* electric-cyan-300 */
+  --ifm-color-primary-lightest: #aaf4fe; /* electric-cyan-200 */
+
+  /* Dark theme backgrounds keeping original theme */
+  --ifm-background-color: #0A0F1C; /* Dark navy black background */
+  --ifm-background-surface-color: #121826; /* Slightly lighter for surfaces */
+
+  /* Dark theme text colors keeping original theme */
+  --ifm-heading-color: #7F4FFF; /* Purple for headings */
+  --ifm-text-color: #e4e5e6; /* Light gray text */
+  --ifm-text-color-subtle: #999ca0; /* Subtle gray for secondary text */
+
+  /* Navbar dark */
+  --ifm-navbar-background-color: #0A0F1C;
+  --ifm-navbar-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+
+  /* Footer dark */
+  --ifm-footer-background-color: #080c16;
+  --ifm-footer-color: #e4e5e6;
+  --ifm-footer-link-color: #999ca0;
+
+  /* Cards dark */
+  --ifm-card-background-color: #121826;
+
+  /* Code blocks dark */
+  --ifm-code-background: #171717;
+  --ifm-pre-background: #171717;
+  --ifm-pre-color: #ffffff;
+
+  /* Menu dark */
+  --ifm-menu-color: #c9cdd1;
+  --ifm-menu-color-active: #7F4FFF;
+  --ifm-menu-color-hover: #00FFFF;
+  --ifm-menu-background-color-hover: #1a1f2a;
+
+  /* Tabs dark */
+  --ifm-tabs-color: #c9cdd1;
+  --ifm-tabs-color-active: #7F4FFF;
+  --ifm-tabs-color-hover: #00FFFF;
+
+  /* Pagination dark */
+  --ifm-pagination-color: #c9cdd1;
+  --ifm-pagination-active-color: #7F4FFF;
+
+  /* Admonitions dark */
+  --ifm-admonition-color: #7f8287;
+  --ifm-admonition-background: #1a1f2a;
+}
+
+/* Global styles */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  overflow-x: hidden;
+  color: var(--ifm-text-color);
+}
+
+/* Responsive styles for main page */
+.main-page {
+  padding: 0 1rem;
+}
+
+/* Container to limit width on large screens */
+.container {
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Responsive heading sizes */
+h1 {
+  font-size: 2.5rem;
+  color: var(--ifm-heading-color); /* Ensure headings are purple */
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--ifm-heading-color); /* Ensure headings are purple */
+}
+
+h3 {
+  font-size: 1.75rem;
+  color: var(--ifm-heading-color); /* Ensure headings are purple */
+}
+
+/* Additional responsive sizing */
+@media (min-width: 640px) {
+  h1 {
+    font-size: 3rem;
+  }
+  
+  h2 {
+    font-size: 2.5rem;
+  }
+  
+  h3 {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 3.5rem;
+  }
+  
+  h2 {
+    font-size: 3rem;
+  }
+  
+  h3 {
+    font-size: 2.5rem;
+  }
+}
+
+/* Gradient text styling - only affects text, keeps emojis in original color */
+.bg-gradient-text {
+  background: linear-gradient(90deg, #00FFFF 0%, #7F4FFF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+}
+
+/* Specific styles to target only text elements for gradient */
+.gradient-text h1,
+.gradient-text h2,
+.gradient-text h3,
+.gradient-text h4,
+.gradient-text h5,
+.gradient-text h6,
+.gradient-text p,
+.gradient-text span:not(.emoji, .tech-emoji, .floating-emoji) {
+  background: linear-gradient(90deg, #00FFFF 0%, #7F4FFF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Responsive styles for floating emojis */
+.floating-emoji,
+.tech-emoji {
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .floating-emoji,
+  .tech-emoji {
+    font-size: 16px;
+    opacity: 0.04;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-emoji,
+  .tech-emoji {
+    font-size: 12px;
+    opacity: 0.03;
+  }
+}
+
+/* Reduce animation intensity on smaller screens for better performance */
+@media (max-width: 768px) {
+  .floating-emoji,
+  .tech-emoji {
+    animation-duration: 8s;
+  }
+}
+
+/* Ensure the navbar is hidden completely */
+.navbar {
+  display: none !important;
+}
+
+/* Alternative approach - if display: none doesn't work, make it transparent */
+.navbar__inner {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Ensure no remnants of the original navbar appear */
+.navbar__items {
+  display: none !important;
+}
+
+/* Specific styles to target book content areas */
+article,
+.docItemContainer,
+.markdown,
+.theme-doc-markdown,
+.theme-doc-wrapper,
+.main-wrapper,
+.docs-wrapper {
+  background-color: var(--ifm-background-color) !important;
+  color: var(--ifm-text-color) !important;
+}
+
+/* Sidebar styling */
+.sidebar {
+  background-color: var(--ifm-background-color) !important;
+  color: var(--ifm-text-color) !important;
+}
+
+.menu {
+  background-color: var(--ifm-background-color) !important;
+  color: var(--ifm-text-color) !important;
+}
+
+.menu__list {
+  background-color: var(--ifm-background-color) !important;
+}
+
+.menu__link {
+  color: var(--ifm-text-color) !important;
+}
+
+.menu__link:hover {
+  color: var(--ifm-color-primary) !important; /* Electric cyan on hover */
+  background-color: #1a1f2a !important;
+}
+
+.menu__link--active {
+  color: #7F4FFF !important; /* Purple for active items */
+}
+
+/* Table of Contents */
+.table-of-contents {
+  background-color: var(--ifm-background-surface-color) !important;
+  border: 1px solid var(--ifm-color-emphasis-200) !important;
+}
+
+/* Cards and other elements */
+.card {
+  background-color: var(--ifm-background-surface-color) !important;
+  border: 1px solid var(--ifm-color-emphasis-300) !important;
+}
+
+/* Code blocks in docs */
+.prism-code {
+  background-color: var(--ifm-code-background) !important;
+}
+
+/* Footer styling */
+.footer {
+  background-color: var(--ifm-footer-background-color) !important;
+  color: var(--ifm-footer-color) !important;
+}
+
+/* Search page specific styling */
+.search-page {
+  background-color: var(--ifm-background-color) !important;
+  color: var(--ifm-text-color) !important;
+}
+
+/* Specific targeting for book chapter pages */
+html body.DocSearch--active,
+.theme-doc-page,
+.docs-page,
+.doc-page,
+.book-content {
+  background-color: var(--ifm-background-color) !important;
+  color: var(--ifm-text-color) !important;
+}

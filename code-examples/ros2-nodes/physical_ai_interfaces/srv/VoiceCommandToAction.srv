@@ -1,0 +1,17 @@
+# VoiceCommandToAction.srv
+# Accepts voice commands in text form and returns planned robot actions
+
+# Request
+string voice_command          # The voice command in text form (e.g., "Pick up the red block")
+string robot_id               # Identifier of the target robot
+string context                # Context information for the command (JSON string) (optional)
+float64 timeout               # Maximum time to wait for plan completion (seconds) (default: 30.0)
+
+---
+# Response
+bool success                  # Indicates if the planning was successful
+string message                # Additional information about the result
+string plan_id                # Identifier for the planned sequence of actions
+ActionStep[] action_sequence  # Ordered list of actions to execute (min 1, max 20 steps)
+float64 estimated_duration    # Estimated time to complete the entire plan (seconds)
+float64 confidence            # Confidence in the plan's success (0.0 to 1.0)

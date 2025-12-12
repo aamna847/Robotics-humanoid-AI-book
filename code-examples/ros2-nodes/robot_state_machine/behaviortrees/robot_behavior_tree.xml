@@ -1,0 +1,76 @@
+<!-- robot_behavior_tree.xml -->
+<!-- Behavior tree for the robot following Physical AI constitution requirements -->
+
+<root main_tree_to_execute="MainTree">
+    <BehaviorTree ID="MainTree">
+        <ReactiveSequence name="MainSequence">
+            <!-- Always check for safety first -->
+            <CheckEmergencyStop name="SafetyCheck"/>
+            
+            <!-- If not in emergency, proceed with normal behavior -->
+            <Sequence name="NormalBehavior">
+                <!-- Perception: Sense the environment -->
+                <PerceiveEnvironment name="Perception"/>
+                
+                <!-- Decision: Determine next action based on goals and environment -->
+                <Fallback name="ActionSelector">
+                    <!-- Try navigation if target is set -->
+                    <Sequence name="NavigationSequence">
+                        <CheckTargetSet name="HasNavigationTarget"/>
+                        <NavigateToTarget name="Navigation"/>
+                    </Sequence>
+                    
+                    <!-- Try manipulation if object is targeted -->
+                    <Sequence name="ManipulationSequence">
+                        <CheckObjectTargeted name="HasObjectTarget"/>
+                        <ManipulateObject name="Manipulation"/>
+                    </Sequence>
+                    
+                    <!-- Default: Idle or communication -->
+                    <Fallback name="DefaultBehavior">
+                        <HandleVoiceCommands name="VoiceCommandProcessing"/>
+                        <Idle name="Standby"/>
+                    </Fallback>
+                </Fallback>
+            </Sequence>
+        </ReactiveSequence>
+    </BehaviorTree>
+    
+    <!-- Define custom nodes that would implement the Physical AI constitution -->
+    <TreeNodesModel>
+        <!-- Safety nodes -->
+        <Decorator ID="CheckEmergencyStop">
+            <input_port name="emergency_stop" type="bool" />
+        </Decorator>
+        
+        <!-- Perception nodes -->
+        <Action ID="PerceiveEnvironment">
+            <output_port name="environment_data" type="string" />
+        </Action>
+        
+        <!-- Navigation nodes -->
+        <Condition ID="CheckTargetSet">
+            <output_port name="has_target" type="bool" />
+        </Condition>
+        <Action ID="NavigateToTarget">
+            <input_port name="target_pose" type="string" />
+        </Action>
+        
+        <!-- Manipulation nodes -->
+        <Condition ID="CheckObjectTargeted">
+            <output_port name="has_object" type="bool" />
+        </Condition>
+        <Action ID="ManipulateObject">
+            <input_port name="object_pose" type="string" />
+            <input_port name="manipulation_type" type="string" />
+        </Action>
+        
+        <!-- Communication nodes -->
+        <Action ID="HandleVoiceCommands">
+            <output_port name="command_parsed" type="bool" />
+        </Action>
+        
+        <!-- Default behavior nodes -->
+        <Action ID="Idle"/>
+    </TreeNodesModel>
+</root>

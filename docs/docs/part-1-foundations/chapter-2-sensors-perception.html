@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-part-1-foundations/chapter-2-sensors-perception" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.1.0">
+<title data-rh="true">Chapter 2 - Sensors &amp; Perception (LiDAR, Cameras, IMUs) | Physical AI &amp; Humanoid Robotics</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://aamna847.github.io/Humanoid-Robotic-Book/docs/part-1-foundations/chapter-2-sensors-perception"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Chapter 2 - Sensors &amp; Perception (LiDAR, Cameras, IMUs) | Physical AI &amp; Humanoid Robotics"><meta data-rh="true" name="description" content="Understanding sensor technologies and perception for robotics"><meta data-rh="true" property="og:description" content="Understanding sensor technologies and perception for robotics"><link data-rh="true" rel="icon" href="/Humanoid-Robotic-Book/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://aamna847.github.io/Humanoid-Robotic-Book/docs/part-1-foundations/chapter-2-sensors-perception"><link data-rh="true" rel="alternate" href="https://aamna847.github.io/Humanoid-Robotic-Book/docs/part-1-foundations/chapter-2-sensors-perception" hreflang="en"><link data-rh="true" rel="alternate" href="https://aamna847.github.io/Humanoid-Robotic-Book/docs/part-1-foundations/chapter-2-sensors-perception" hreflang="x-default"><link rel="stylesheet" href="/Humanoid-Robotic-Book/assets/css/styles.50603041.css">
+<script src="/Humanoid-Robotic-Book/assets/js/runtime~main.7659d4e8.js" defer="defer"></script>
+<script src="/Humanoid-Robotic-Book/assets/js/main.f243db6a.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div class="floating-emoji fixed pointer-events-none opacity-5 z-0" style="left:79.83319363862195%;top:77.22790416663766%;font-size:20px;z-index:0;filter:grayscale(70%) brightness(1.5);opacity:0;transform:translateY(50px)">📱</div><div class="floating-emoji fixed pointer-events-none opacity-5 z-0" style="left:17.398657213065416%;top:88.6210893052697%;font-size:20px;z-index:0;filter:grayscale(70%) brightness(1.5);opacity:0;transform:translateY(50px)">🖥️</div><div class="floating-emoji fixed pointer-events-none opacity-5 z-0" style="left:50.16477519067131%;top:85.05134377897275%;font-size:20px;z-index:0;filter:grayscale(70%) brightness(1.5);opacity:0;transform:translateY(50px)">📡</div><div class="floating-emoji fixed pointer-events-none opacity-5 z-0" style="left:82.89555375434843%;top:97.63048440495312%;font-size:20px;z-index:0;filter:grayscale(70%) brightness(1.5);opacity:0;transform:translateY(50px)">📡</div><div class="floating-emoji fixed pointer-events-none opacity-5 z-0" style="left:44.295700695100216%;top:62.141220072142744%;font-size:20px;z-index:0;filter:grayscale(70%) brightness(1.5);opacity:0;transform:translateY(50px)">📌</div><div class="floating-emoji fixed pointer-events-none opacity-5 z-0" style="left:22.369414651194454%;top:53.423456129840616%;font-size:20px;z-index:0;filter:grayscale(70%) brightness(1.5);opacity:0;transform:translateY(50px)">🔧</div><div class="floating-emoji fixed pointer-events-none opacity-5 z-0" style="left:6.442855988759966%;top:90.58394200529038%;font-size:20px;z-index:0;filter:grayscale(70%) brightness(1.5);opacity:0;transform:translateY(50px)">🔌</div><div class="floating-emoji fixed pointer-events-none opacity-5 z-0" style="left:42.60015557099736%;top:5.3942421541493975%;font-size:20px;z-index:0;filter:grayscale(70%) brightness(1.5);opacity:0;transform:translateY(50px)">📌</div><div class="floating-emoji fixed pointer-events-none opacity-5 z-0" style="left:13.704949090810237%;top:13.30687762555851%;font-size:20px;z-index:0;filter:grayscale(70%) brightness(1.5);opacity:0;transform:translateY(50px)">🔓</div><div class="floating-emoji fixed pointer-events-none opacity-5 z-0" style="left:43.10365760094446%;top:8.537202830571122%;font-size:20px;z-index:0;filter:grayscale(70%) brightness(1.5);opacity:0;transform:translateY(50px)">💻</div><div class="floating-emoji fixed pointer-events-none opacity-5 z-0" style="left:74.57707696502304%;top:79.23115066536178%;font-size:20px;z-index:0;filter:grayscale(70%) brightness(1.5);opacity:0;transform:translateY(50px)">🔓</div><div class="floating-emoji fixed pointer-events-none opacity-5 z-0" style="left:12.065708010883004%;top:71.3904288976464%;font-size:20px;z-index:0;filter:grayscale(70%) brightness(1.5);opacity:0;transform:translateY(50px)">📡</div><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top navbar--dark"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/Humanoid-Robotic-Book/"><div class="navbar__logo"><img src="/Humanoid-Robotic-Book/img/logo.svg" alt="Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/Humanoid-Robotic-Book/img/logo.svg" alt="Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Physical AI</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/Humanoid-Robotic-Book/docs/introduction">Docs</a></div><div class="navbar__items navbar__items--right"><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS darkNavbarColorModeToggle_X3D1" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="true" href="/Humanoid-Robotic-Book/docs/introduction">Introduction</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/introduction">🤖 🤖 Curriculum Module: Physical AI &amp; Humanoid Robotics 🧠 🤖</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" aria-expanded="true" href="/Humanoid-Robotic-Book/docs/part-1-foundations/chapter-1-introduction-to-physical-ai">Part 1: Foundations</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-1-foundations/chapter-1-introduction-to-physical-ai">Chapter 1 - Introduction to Physical AI &amp; Embodied Intelligence</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-1-foundations/chapter-2-sensors-perception">Chapter 2 - Sensors &amp; Perception (LiDAR, Cameras, IMUs)</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="true" href="/Humanoid-Robotic-Book/docs/part-2-nervous-system/chapter-3-ros2-architecture-core-concepts">Part 2: The Nervous System (ROS 2)</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-2-nervous-system/chapter-3-ros2-architecture-core-concepts">Chapter 3 - ROS 2 Architecture &amp; Core Concepts</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-2-nervous-system/chapter-4-vision-language-action-systems">Chapter 4 - Vision-Language-Action Systems</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-2-nervous-system/chapter-5-launch-systems-parameter-management">Chapter 5 - Launch Systems &amp; Parameter Management</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="true" href="/Humanoid-Robotic-Book/docs/part-3-digital-twin/chapter-6-simulation-gazebo-urdf-sdf">Part 3: The Digital Twin</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-3-digital-twin/chapter-6-simulation-gazebo-urdf-sdf">Chapter 6 - Simulation with Gazebo (URDF/SDF)</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-3-digital-twin/chapter-7-physics-simulation-unity-integration">Chapter 7 - Physics Simulation &amp; Unity Integration</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="true" href="/Humanoid-Robotic-Book/docs/part-4-ai-brain/chapter-6-nvidia-isaac-sim-sdk">Part 4: The AI Brain</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-4-ai-brain/chapter-6-nvidia-isaac-sim-sdk">Chapter 6 - NVIDIA Isaac Sim &amp; SDK</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-4-ai-brain/chapter-9-visual-slam-navigation">Chapter 9 - Visual SLAM &amp; Navigation (Nav2)</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-4-ai-brain/chapter-10-reinforcement-learning-control">Chapter 10 - Reinforcement Learning for Control</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="true" href="/Humanoid-Robotic-Book/docs/part-5-advanced-humanoids/chapter-11-humanoid-kinematics-locomotion">Part 5: Advanced Humanoids</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-5-advanced-humanoids/chapter-11-humanoid-kinematics-locomotion">Chapter 11 - Humanoid Kinematics &amp; Bipedal Locomotion</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-5-advanced-humanoids/chapter-12-vla-conversational-robotics">Chapter 12 - VLA (Vision-Language-Action) &amp; Conversational Robotics</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/Humanoid-Robotic-Book/docs/part-5-advanced-humanoids/hardware-requirements-robot-platforms">Chapter 13 - Hardware Requirements &amp; Robot Platforms</a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/Humanoid-Robotic-Book/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Part 1: Foundations</span><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">Chapter 2 - Sensors &amp; Perception (LiDAR, Cameras, IMUs)</span><meta itemprop="position" content="2"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><h1>📚 📡 Chapter 2: Sensors &amp; Perception (LiDAR, Cameras, IMUs) 👁️ 📚</h1>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="--learning-objectives-">🎯 🎯 Learning Objectives 🎯<a href="#--learning-objectives-" class="hash-link" aria-label="Direct link to 🎯 🎯 Learning Objectives 🎯" title="Direct link to 🎯 🎯 Learning Objectives 🎯">​</a></h2>
+<ul>
+<li>Understand the fundamental sensor types used in humanoid robotics</li>
+<li>Explain the capabilities and limitations of LiDAR, cameras, and IMU sensors</li>
+<li>Describe how sensor fusion combines multiple sensor inputs for improved perception</li>
+<li>Analyze the relationship between sensor selection and task requirements</li>
+<li>Implement basic sensor data processing techniques</li>
+<li>Evaluate sensor performance in various environmental conditions</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="--table-of-contents-">📋 📋 Table of Contents 📋<a href="#--table-of-contents-" class="hash-link" aria-label="Direct link to 📋 📋 Table of Contents 📋" title="Direct link to 📋 📋 Table of Contents 📋">​</a></h2>
+<ul>
+<li><a href="#introduction-to-robot-sensors">Introduction to Robot Sensors</a></li>
+<li><a href="#lidar-technology">LiDAR Technology</a></li>
+<li><a href="#computer-vision--cameras">Computer Vision &amp; Cameras</a></li>
+<li><a href="#inertial-measurement-units-imus">Inertial Measurement Units (IMUs)</a></li>
+<li><a href="#sensor-fusion">Sensor Fusion</a></li>
+<li><a href="#environmental-factors--sensor-performance">Environmental Factors &amp; Sensor Performance</a></li>
+<li><a href="#sensor-integration-in-robotics-systems">Sensor Integration in Robotics Systems</a></li>
+<li><a href="#chapter-summary">Chapter Summary</a></li>
+<li><a href="#knowledge-check">Knowledge Check</a></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-introduction-to-robot-sensors-">👋 Introduction to Robot Sensors 👋<a href="#-introduction-to-robot-sensors-" class="hash-link" aria-label="Direct link to 👋 Introduction to Robot Sensors 👋" title="Direct link to 👋 Introduction to Robot Sensors 👋">​</a></h2>
+<p>Robotic perception relies on sensors to understand and interact with the physical world. Sensors serve as the eyes, ears, and skin of robots, translating physical phenomena into digital data that can be processed by AI systems. The choice and integration of sensors is critical to the success of any robotic system, as it determines what information is available for decision-making and action.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-sensor-classification-ℹ️">ℹ️ Sensor Classification ℹ️<a href="#ℹ️-sensor-classification-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Sensor Classification ℹ️" title="Direct link to ℹ️ Sensor Classification ℹ️">​</a></h3>
+<p>Robotic sensors can be classified based on different criteria:</p>
+<ol>
+<li>
+<p><strong>Internal vs. External</strong>: Internal sensors measure the robot&#x27;s own state (joint angles, battery level) while external sensors measure environmental properties (distance to obstacles, light intensity).</p>
+</li>
+<li>
+<p><strong>Active vs. Passive</strong>: Active sensors emit energy (light, sound) to measure the environment (LiDAR, sonar), while passive sensors merely detect existing energy (cameras, microphones).</p>
+</li>
+<li>
+<p><strong>Range and Purpose</strong>: Proprioceptive sensors measure internal states, exteroceptive sensors measure the external world, and inertial sensors measure acceleration and rotation.</p>
+</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-sensor-performance-metrics-">📈 Sensor Performance Metrics 📈<a href="#-sensor-performance-metrics-" class="hash-link" aria-label="Direct link to 📈 Sensor Performance Metrics 📈" title="Direct link to 📈 Sensor Performance Metrics 📈">​</a></h3>
+<p>Critical parameters for evaluating sensors include:</p>
+<ul>
+<li><strong>Accuracy</strong>: How closely sensor measurements match true values</li>
+<li><strong>Precision</strong>: The consistency of repeated measurements</li>
+<li><strong>Resolution</strong>: The smallest detectable change in the measured quantity</li>
+<li><strong>Range</strong>: The operational measurement range</li>
+<li><strong>Bandwidth</strong>: The maximum frequency of reliable measurements</li>
+<li><strong>Latency</strong>: The time delay between event and measurement</li>
+<li><strong>Reliability</strong>: The probability of correct operation over time</li>
+<li><strong>Power Consumption</strong>: Energy requirements for operation</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-lidar-technology-">📡 LiDAR Technology 📡<a href="#-lidar-technology-" class="hash-link" aria-label="Direct link to 📡 LiDAR Technology 📡" title="Direct link to 📡 LiDAR Technology 📡">​</a></h2>
+<p>LiDAR (Light Detection and Ranging) sensors emit laser pulses and measure the time it takes for the reflected light to return, calculating distances with high precision. This technology provides accurate 3D spatial information that is essential for mapping, navigation, and obstacle detection in robotics.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-working-principle-ℹ️">ℹ️ Working Principle ℹ️<a href="#ℹ️-working-principle-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Working Principle ℹ️" title="Direct link to ℹ️ Working Principle ℹ️">​</a></h3>
+<p>LiDAR sensors operate on the time-of-flight principle:</p>
+<ol>
+<li>Emit laser pulses at known intervals</li>
+<li>Detect reflected pulses</li>
+<li>Calculate distance using: distance = (speed_of_light × time_delay) / 2</li>
+<li>Combine distance measurements with scanner angle for 3D positioning</li>
+</ol>
+<p>Modern LiDAR systems can make thousands of measurements per second, creating dense point clouds that represent the 3D structure of the environment.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-types-of-lidar-systems-">📡 Types of LiDAR Systems 📡<a href="#-types-of-lidar-systems-" class="hash-link" aria-label="Direct link to 📡 Types of LiDAR Systems 📡" title="Direct link to 📡 Types of LiDAR Systems 📡">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="-mechanical-lidar-">📡 Mechanical LiDAR 📡<a href="#-mechanical-lidar-" class="hash-link" aria-label="Direct link to 📡 Mechanical LiDAR 📡" title="Direct link to 📡 Mechanical LiDAR 📡">​</a></h4>
+<ul>
+<li>Rotating mirror systems that sweep laser beams</li>
+<li>High resolution and accuracy</li>
+<li>Moving parts create maintenance concerns</li>
+<li>Examples: Velodyne HDL-64E, Ouster OS1</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="-solid-state-lidar-">📡 Solid-State LiDAR 📡<a href="#-solid-state-lidar-" class="hash-link" aria-label="Direct link to 📡 Solid-State LiDAR 📡" title="Direct link to 📡 Solid-State LiDAR 📡">​</a></h4>
+<ul>
+<li>No moving parts; use optical phased arrays or flash illumination</li>
+<li>More reliable and compact</li>
+<li>Generally lower resolution than mechanical systems</li>
+<li>Examples: LeddarTech, Luminar sensors</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="-mems-based-lidar-">📡 MEMS-Based LiDAR 📡<a href="#-mems-based-lidar-" class="hash-link" aria-label="Direct link to 📡 MEMS-Based LiDAR 📡" title="Direct link to 📡 MEMS-Based LiDAR 📡">​</a></h4>
+<ul>
+<li>Microscopic moving mirrors for beam steering</li>
+<li>Compact and medium-cost</li>
+<li>Balance between performance and reliability</li>
+<li>Examples: Innoviz, Hesai sensors</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-applications-in-robotics-">🤖 Applications in Robotics 🤖<a href="#-applications-in-robotics-" class="hash-link" aria-label="Direct link to 🤖 Applications in Robotics 🤖" title="Direct link to 🤖 Applications in Robotics 🤖">​</a></h3>
+<p>LiDAR is particularly valuable for:</p>
+<ul>
+<li><strong>Mapping</strong>: Creating accurate 2D or 3D representations of environments</li>
+<li><strong>Localization</strong>: Determining robot position relative to known maps</li>
+<li><strong>Navigation</strong>: Obstacle detection and path planning</li>
+<li><strong>SLAM</strong>: Simultaneous Localization and Mapping in unknown environments</li>
+<li><strong>Object Detection</strong>: Identifying and characterizing objects in the environment</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-advantages-of-lidar-">📡 Advantages of LiDAR 📡<a href="#-advantages-of-lidar-" class="hash-link" aria-label="Direct link to 📡 Advantages of LiDAR 📡" title="Direct link to 📡 Advantages of LiDAR 📡">​</a></h3>
+<ul>
+<li>High accuracy in distance measurements (millimeter precision possible)</li>
+<li>Works in various lighting conditions (day/night)</li>
+<li>Dense spatial information with known accuracy</li>
+<li>Relatively immune to weather (though fog can impact performance)</li>
+<li>Established technology with mature algorithms</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-limitations-of-lidar-">📡 Limitations of LiDAR 📡<a href="#-limitations-of-lidar-" class="hash-link" aria-label="Direct link to 📡 Limitations of LiDAR 📡" title="Direct link to 📡 Limitations of LiDAR 📡">​</a></h3>
+<ul>
+<li>Expensive compared to other sensors (though costs are decreasing)</li>
+<li>Limited ability to classify objects compared to cameras</li>
+<li>Performance degrades in adverse weather (rain, fog, snow)</li>
+<li>Limited information about texture and color</li>
+<li>Potential for specular reflection from certain surfaces</li>
+<li>Susceptibility to interference from other LiDAR systems</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-lidar-data-processing-">📡 LiDAR Data Processing 📡<a href="#-lidar-data-processing-" class="hash-link" aria-label="Direct link to 📡 LiDAR Data Processing 📡" title="Direct link to 📡 LiDAR Data Processing 📡">​</a></h3>
+<p>LiDAR data typically comes as point clouds - sets of 3D coordinates representing detected surfaces. Processing involves:</p>
+<ul>
+<li><strong>Filtering</strong>: Removing noise and irrelevant points</li>
+<li><strong>Segmentation</strong>: Grouping points into meaningful objects</li>
+<li><strong>Feature Extraction</strong>: Identifying geometric properties (planes, edges, corners)</li>
+<li><strong>Object Recognition</strong>: Classification of segmented regions</li>
+<li><strong>Tracking</strong>: Associating detections across time steps</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="️-computer-vision--cameras-️">👁️ Computer Vision &amp; Cameras 👁️<a href="#️-computer-vision--cameras-️" class="hash-link" aria-label="Direct link to 👁️ Computer Vision &amp; Cameras 👁️" title="Direct link to 👁️ Computer Vision &amp; Cameras 👁️">​</a></h2>
+<p>Cameras provide rich visual information about the environment, including color, texture, and detailed shape information. Unlike LiDAR, cameras can distinguish between objects of the same shape but different appearance (color, texture, material).</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-camera-types-and-characteristics-">✅ Camera Types and Characteristics ✅<a href="#-camera-types-and-characteristics-" class="hash-link" aria-label="Direct link to ✅ Camera Types and Characteristics ✅" title="Direct link to ✅ Camera Types and Characteristics ✅">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-pinhole-camera-model-ℹ️">ℹ️ Pinhole Camera Model ℹ️<a href="#ℹ️-pinhole-camera-model-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Pinhole Camera Model ℹ️" title="Direct link to ℹ️ Pinhole Camera Model ℹ️">​</a></h4>
+<p>The fundamental model describing how 3D points project to 2D image coordinates:</p>
+<ul>
+<li>Intrinsic parameters: focal length, principal point, lens distortion coefficients</li>
+<li>Extrinsic parameters: camera position and orientation relative to the world</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="️-stereo-vision-️">👁️ Stereo Vision 👁️<a href="#️-stereo-vision-️" class="hash-link" aria-label="Direct link to 👁️ Stereo Vision 👁️" title="Direct link to 👁️ Stereo Vision 👁️">​</a></h4>
+<p>Two cameras positioned to mimic human binocular vision allow for:</p>
+<ul>
+<li>Depth estimation through triangulation</li>
+<li>Dense 3D reconstruction of scene elements</li>
+<li>Improved object recognition through stereo features</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-monocular-depth-estimation-ℹ️">ℹ️ Monocular Depth Estimation ℹ️<a href="#ℹ️-monocular-depth-estimation-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Monocular Depth Estimation ℹ️" title="Direct link to ℹ️ Monocular Depth Estimation ℹ️">​</a></h4>
+<p>Deep learning techniques now enable depth estimation from single images:</p>
+<ul>
+<li>Learned priors from training data</li>
+<li>Motion-based depth estimation</li>
+<li>Defocus and other monocular cues</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-image-processing-fundamentals-">🧠 Image Processing Fundamentals 🧠<a href="#-image-processing-fundamentals-" class="hash-link" aria-label="Direct link to 🧠 Image Processing Fundamentals 🧠" title="Direct link to 🧠 Image Processing Fundamentals 🧠">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="-preprocessing-">🧠 Preprocessing 🧠<a href="#-preprocessing-" class="hash-link" aria-label="Direct link to 🧠 Preprocessing 🧠" title="Direct link to 🧠 Preprocessing 🧠">​</a></h4>
+<ul>
+<li><strong>Noise Reduction</strong>: Filtering to improve signal-to-noise ratio</li>
+<li><strong>Distortion Correction</strong>: Compensation for lens effects</li>
+<li><strong>Color Space Conversion</strong>: Transforming to appropriate color spaces (RGB, HSV, etc.)</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-feature-detection-ℹ️">ℹ️ Feature Detection ℹ️<a href="#ℹ️-feature-detection-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Feature Detection ℹ️" title="Direct link to ℹ️ Feature Detection ℹ️">​</a></h4>
+<ul>
+<li><strong>Edge Detection</strong>: Canny, Sobel, and other gradient-based methods</li>
+<li><strong>Corner Detection</strong>: Harris, Shi-Tomasi corner detectors</li>
+<li><strong>Blob Detection</strong>: Finding connected regions of interest</li>
+<li><strong>Template Matching</strong>: Locating known patterns in images</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-feature-description-ℹ️">ℹ️ Feature Description ℹ️<a href="#ℹ️-feature-description-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Feature Description ℹ️" title="Direct link to ℹ️ Feature Description ℹ️">​</a></h4>
+<ul>
+<li><strong>SIFT</strong>: Scale-Invariant Feature Transform</li>
+<li><strong>SURF</strong>: Speeded-Up Robust Features</li>
+<li><strong>ORB</strong>: Oriented FAST and Rotated BRIEF</li>
+<li><strong>Deep Learning Features</strong>: Learned representations from neural networks</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-applications-in-robotics--1">🤖 Applications in Robotics 🤖<a href="#-applications-in-robotics--1" class="hash-link" aria-label="Direct link to 🤖 Applications in Robotics 🤖" title="Direct link to 🤖 Applications in Robotics 🤖">​</a></h3>
+<p>Cameras enable:</p>
+<ul>
+<li><strong>Object Recognition</strong>: Identifying and classifying objects in the environment</li>
+<li><strong>Visual SLAM</strong>: Simultaneous Localization and Mapping using visual features</li>
+<li><strong>Scene Understanding</strong>: Semantic segmentation and contextual analysis</li>
+<li><strong>Human-Robot Interaction</strong>: Gesture recognition, facial expression analysis</li>
+<li><strong>Manipulation</strong>: Precise positioning for grasping and assembly</li>
+<li><strong>Monitoring</strong>: Long-term surveillance and anomaly detection</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-advantages-of-camera-sensors-">📡 Advantages of Camera Sensors 📡<a href="#-advantages-of-camera-sensors-" class="hash-link" aria-label="Direct link to 📡 Advantages of Camera Sensors 📡" title="Direct link to 📡 Advantages of Camera Sensors 📡">​</a></h3>
+<ul>
+<li>Rich, high-dimensional information (color, texture, shape)</li>
+<li>Relatively inexpensive compared to high-end LiDAR</li>
+<li>Human-understandable outputs</li>
+<li>Wide availability and supporting ecosystem</li>
+<li>High resolution in planar directions</li>
+<li>Compatibility with deep learning computer vision techniques</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-limitations-of-camera-sensors-">📡 Limitations of Camera Sensors 📡<a href="#-limitations-of-camera-sensors-" class="hash-link" aria-label="Direct link to 📡 Limitations of Camera Sensors 📡" title="Direct link to 📡 Limitations of Camera Sensors 📡">​</a></h3>
+<ul>
+<li>Performance degradation in poor lighting conditions</li>
+<li>Ambiguity in depth estimation (monocular case)</li>
+<li>Sensitivity to atmospheric conditions (fog, rain)</li>
+<li>Computationally intensive processing requirements</li>
+<li>Privacy concerns when deployed publicly</li>
+<li>Difficulty with transparent or reflective surfaces</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-deep-learning-in-visual-perception-">🎯 Deep Learning in Visual Perception 🎯<a href="#-deep-learning-in-visual-perception-" class="hash-link" aria-label="Direct link to 🎯 Deep Learning in Visual Perception 🎯" title="Direct link to 🎯 Deep Learning in Visual Perception 🎯">​</a></h3>
+<p>Modern computer vision increasingly relies on deep learning:</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-convolutional-neural-networks-cnns-ℹ️">ℹ️ Convolutional Neural Networks (CNNs) ℹ️<a href="#ℹ️-convolutional-neural-networks-cnns-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Convolutional Neural Networks (CNNs) ℹ️" title="Direct link to ℹ️ Convolutional Neural Networks (CNNs) ℹ️">​</a></h4>
+<ul>
+<li>Feature learning for object detection, classification, and segmentation</li>
+<li>End-to-end training for custom robotics tasks</li>
+<li>Pre-trained models for transfer learning</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="️-vision-transformers-️">👁️ Vision Transformers 👁️<a href="#️-vision-transformers-️" class="hash-link" aria-label="Direct link to 👁️ Vision Transformers 👁️" title="Direct link to 👁️ Vision Transformers 👁️">​</a></h4>
+<ul>
+<li>Attention mechanisms for long-range dependencies</li>
+<li>Scalable architectures for complex scene understanding</li>
+<li>Fewer inductive biases than CNNs</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="-multimodal-learning-">🎯 Multimodal Learning 🎯<a href="#-multimodal-learning-" class="hash-link" aria-label="Direct link to 🎯 Multimodal Learning 🎯" title="Direct link to 🎯 Multimodal Learning 🎯">​</a></h4>
+<ul>
+<li>Integration of visual information with other sensor data</li>
+<li>Language-image models for visual question answering</li>
+<li>Cross-modal learning for improved robustness</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="️-inertial-measurement-units-imus-️">⚖️ Inertial Measurement Units (IMUs) ⚖️<a href="#️-inertial-measurement-units-imus-️" class="hash-link" aria-label="Direct link to ⚖️ Inertial Measurement Units (IMUs) ⚖️" title="Direct link to ⚖️ Inertial Measurement Units (IMUs) ⚖️">​</a></h2>
+<p>IMUs combine accelerometers and gyroscopes to measure linear acceleration and angular velocity, which can be integrated to estimate position and orientation. These sensors are essential for robot stabilization and navigation, especially in GPS-denied environments.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="️-imu-components-️">⚖️ IMU Components ⚖️<a href="#️-imu-components-️" class="hash-link" aria-label="Direct link to ⚖️ IMU Components ⚖️" title="Direct link to ⚖️ IMU Components ⚖️">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-accelerometers-ℹ️">ℹ️ Accelerometers ℹ️<a href="#ℹ️-accelerometers-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Accelerometers ℹ️" title="Direct link to ℹ️ Accelerometers ℹ️">​</a></h4>
+<ul>
+<li>Measure linear acceleration along three axes (x, y, z)</li>
+<li>Can detect gravity when stationary, enabling tilt measurement</li>
+<li>Sensitive to vibration and external forces</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-gyroscopes-ℹ️">ℹ️ Gyroscopes ℹ️<a href="#ℹ️-gyroscopes-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Gyroscopes ℹ️" title="Direct link to ℹ️ Gyroscopes ℹ️">​</a></h4>
+<ul>
+<li>Measure angular velocity around three axes (roll, pitch, yaw)</li>
+<li>Enable precise rotation tracking</li>
+<li>Subject to drift over time</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="️-magnetometers-in-imum-systems-️">⚖️ Magnetometers (in IMU+M systems) ⚖️<a href="#️-magnetometers-in-imum-systems-️" class="hash-link" aria-label="Direct link to ⚖️ Magnetometers (in IMU+M systems) ⚖️" title="Direct link to ⚖️ Magnetometers (in IMU+M systems) ⚖️">​</a></h4>
+<ul>
+<li>Provide magnetic field measurements</li>
+<li>Enable absolute heading reference (like a compass)</li>
+<li>Sensitive to electromagnetic interference</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="️-imu-outputs-and-processing-️">⚖️ IMU Outputs and Processing ⚖️<a href="#️-imu-outputs-and-processing-️" class="hash-link" aria-label="Direct link to ⚖️ IMU Outputs and Processing ⚖️" title="Direct link to ⚖️ IMU Outputs and Processing ⚖️">​</a></h3>
+<p>IMUs typically output:</p>
+<ul>
+<li>Linear acceleration (3-axis vector)</li>
+<li>Angular velocity (3-axis vector)</li>
+<li>Sometimes magnetic field (3-axis vector)</li>
+</ul>
+<p>Processing involves:</p>
+<ul>
+<li><strong>Calibration</strong>: Correcting for sensor biases and scale factors</li>
+<li><strong>Integration</strong>: Converting acceleration to velocity and position</li>
+<li><strong>Sensor Fusion</strong>: Combining with other sensors to mitigate drift</li>
+<li><strong>Filtering</strong>: Smoothing noisy measurements</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-applications-in-robotics--2">🤖 Applications in Robotics 🤖<a href="#-applications-in-robotics--2" class="hash-link" aria-label="Direct link to 🤖 Applications in Robotics 🤖" title="Direct link to 🤖 Applications in Robotics 🤖">​</a></h3>
+<p>IMUs are crucial for:</p>
+<ul>
+<li><strong>Stabilization</strong>: Keeping robots upright and balanced</li>
+<li><strong>Orientation Estimation</strong>: Determining robot attitude in space</li>
+<li><strong>Motion Detection</strong>: Recognizing movement patterns and gestures</li>
+<li><strong>Inertial Navigation</strong>: Position tracking in GPS-denied environments</li>
+<li><strong>Dynamic Control</strong>: Feedback for controlling robot motions</li>
+<li><strong>State Estimation</strong>: Integration into robot state estimators</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-imu-fusion-with-other-sensors-">📡 IMU Fusion with Other Sensors 📡<a href="#-imu-fusion-with-other-sensors-" class="hash-link" aria-label="Direct link to 📡 IMU Fusion with Other Sensors 📡" title="Direct link to 📡 IMU Fusion with Other Sensors 📡">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="️-imu--gps-️">⚖️ IMU + GPS ⚖️<a href="#️-imu--gps-️" class="hash-link" aria-label="Direct link to ⚖️ IMU + GPS ⚖️" title="Direct link to ⚖️ IMU + GPS ⚖️">​</a></h4>
+<ul>
+<li>GPS provides absolute position (without drift)</li>
+<li>IMU provides high-frequency motion information</li>
+<li>Combined for accurate, responsive navigation</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="-imu--cameras-visual-inertial-odometry-">📷 IMU + Cameras (Visual-Inertial Odometry) 📷<a href="#-imu--cameras-visual-inertial-odometry-" class="hash-link" aria-label="Direct link to 📷 IMU + Cameras (Visual-Inertial Odometry) 📷" title="Direct link to 📷 IMU + Cameras (Visual-Inertial Odometry) 📷">​</a></h4>
+<ul>
+<li>Visual features provide absolute reference points</li>
+<li>IMU provides motion priors and high-frequency updates</li>
+<li>Robust in situations where either sensor alone might fail</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="️-imu-for-humanoid-balance-️">⚖️ IMU for Humanoid Balance ⚖️<a href="#️-imu-for-humanoid-balance-️" class="hash-link" aria-label="Direct link to ⚖️ IMU for Humanoid Balance ⚖️" title="Direct link to ⚖️ IMU for Humanoid Balance ⚖️">​</a></h4>
+<ul>
+<li>Critical for bipedal locomotion</li>
+<li>Feedback for ankle, hip, and trunk control</li>
+<li>Detection of external disturbances and falls</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="️-advantages-of-imus-️">⚖️ Advantages of IMUs ⚖️<a href="#️-advantages-of-imus-️" class="hash-link" aria-label="Direct link to ⚖️ Advantages of IMUs ⚖️" title="Direct link to ⚖️ Advantages of IMUs ⚖️">​</a></h3>
+<ul>
+<li>High-frequency measurements (hundreds to thousands of Hz)</li>
+<li>Small size and low power consumption</li>
+<li>Self-contained measurement (no external infrastructure required)</li>
+<li>Essential for dynamic control and balance</li>
+<li>Complementary to other sensors</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="️-limitations-of-imus-️">⚖️ Limitations of IMUs ⚖️<a href="#️-limitations-of-imus-️" class="hash-link" aria-label="Direct link to ⚖️ Limitations of IMUs ⚖️" title="Direct link to ⚖️ Limitations of IMUs ⚖️">​</a></h3>
+<ul>
+<li>Drift due to integration of noisy measurements</li>
+<li>Double integration of accelerometer noise causes rapid position drift</li>
+<li>Sensitivity to vibration and external forces</li>
+<li>Need for frequent calibration</li>
+<li>Temperature sensitivity</li>
+<li>Cannot provide absolute position without external references</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-sensor-fusion-">🔗 Sensor Fusion 🔗<a href="#-sensor-fusion-" class="hash-link" aria-label="Direct link to 🔗 Sensor Fusion 🔗" title="Direct link to 🔗 Sensor Fusion 🔗">​</a></h2>
+<p>Sensor fusion combines data from multiple sensors to achieve better performance than any individual sensor could provide. The goal is to leverage the strengths of each sensor while compensating for their weaknesses.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-fusion-approaches-">🔗 Fusion Approaches 🔗<a href="#-fusion-approaches-" class="hash-link" aria-label="Direct link to 🔗 Fusion Approaches 🔗" title="Direct link to 🔗 Fusion Approaches 🔗">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-kalman-filters-ℹ️">ℹ️ Kalman Filters ℹ️<a href="#ℹ️-kalman-filters-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Kalman Filters ℹ️" title="Direct link to ℹ️ Kalman Filters ℹ️">​</a></h4>
+<ul>
+<li>Optimal estimator for linear systems with Gaussian noise</li>
+<li>Recursive algorithm suitable for real-time applications</li>
+<li>Variants include Extended Kalman Filter (EKF) and Unscented Kalman Filter (UKF)</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-particle-filters-ℹ️">ℹ️ Particle Filters ℹ️<a href="#ℹ️-particle-filters-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Particle Filters ℹ️" title="Direct link to ℹ️ Particle Filters ℹ️">​</a></h4>
+<ul>
+<li>Non-parametric approach for non-linear, non-Gaussian systems</li>
+<li>Represents probability distributions with samples (particles)</li>
+<li>Suitable for multi-modal situations</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-complementary-filters-ℹ️">ℹ️ Complementary Filters ℹ️<a href="#ℹ️-complementary-filters-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Complementary Filters ℹ️" title="Direct link to ℹ️ Complementary Filters ℹ️">​</a></h4>
+<ul>
+<li>Simple approach combining sensors with different noise characteristics</li>
+<li>Low-frequency components from one sensor, high-frequency from another</li>
+<li>Computationally efficient for real-time applications</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-multi-sensor-integration-">🔗 Multi-Sensor Integration 🔗<a href="#-multi-sensor-integration-" class="hash-link" aria-label="Direct link to 🔗 Multi-Sensor Integration 🔗" title="Direct link to 🔗 Multi-Sensor Integration 🔗">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-spatial-registration-ℹ️">ℹ️ Spatial Registration ℹ️<a href="#ℹ️-spatial-registration-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Spatial Registration ℹ️" title="Direct link to ℹ️ Spatial Registration ℹ️">​</a></h4>
+<ul>
+<li>Calibrating the geometric relationship between sensors</li>
+<li>Transforming measurements to a common coordinate system</li>
+<li>Time synchronization to associate simultaneous measurements</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-temporal-alignment-ℹ️">ℹ️ Temporal Alignment ℹ️<a href="#ℹ️-temporal-alignment-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Temporal Alignment ℹ️" title="Direct link to ℹ️ Temporal Alignment ℹ️">​</a></h4>
+<ul>
+<li>Managing different sampling rates of various sensors</li>
+<li>Interpolation for asynchronous measurements</li>
+<li>Buffering strategies for delayed data</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="-data-association-">📊 Data Association 📊<a href="#-data-association-" class="hash-link" aria-label="Direct link to 📊 Data Association 📊" title="Direct link to 📊 Data Association 📊">​</a></h4>
+<ul>
+<li>Matching observations across different sensors</li>
+<li>Handling spurious measurements and outliers</li>
+<li>Tracking objects through sensor updates</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-fusion-applications-in-physical-ai-">🤖 Fusion Applications in Physical AI 🤖<a href="#-fusion-applications-in-physical-ai-" class="hash-link" aria-label="Direct link to 🤖 Fusion Applications in Physical AI 🤖" title="Direct link to 🤖 Fusion Applications in Physical AI 🤖">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-localization-and-mapping-ℹ️">ℹ️ Localization and Mapping ℹ️<a href="#ℹ️-localization-and-mapping-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Localization and Mapping ℹ️" title="Direct link to ℹ️ Localization and Mapping ℹ️">​</a></h4>
+<ul>
+<li>Combining LiDAR for environmental structure, cameras for detailed features, and IMU for motion tracking</li>
+<li>Robust estimation in dynamic environments</li>
+<li>Multi-modal SLAM approaches</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-manipulation-ℹ️">ℹ️ Manipulation ℹ️<a href="#ℹ️-manipulation-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Manipulation ℹ️" title="Direct link to ℹ️ Manipulation ℹ️">​</a></h4>
+<ul>
+<li>Visual servoing combining camera feedback with force/torque sensors</li>
+<li>Haptic feedback from tactile sensors during grasping</li>
+<li>Multi-finger force distribution during manipulation</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-locomotion-ℹ️">ℹ️ Locomotion ℹ️<a href="#ℹ️-locomotion-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Locomotion ℹ️" title="Direct link to ℹ️ Locomotion ℹ️">​</a></h4>
+<ul>
+<li>IMU for balance and orientation, LiDAR for terrain awareness, cameras for foothold selection</li>
+<li>Sensor-based gait adaptation for different terrains</li>
+<li>Disturbance detection and recovery</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-environmental-factors--sensor-performance-">📈 Environmental Factors &amp; Sensor Performance 📈<a href="#-environmental-factors--sensor-performance-" class="hash-link" aria-label="Direct link to 📈 Environmental Factors &amp; Sensor Performance 📈" title="Direct link to 📈 Environmental Factors &amp; Sensor Performance 📈">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-weather-conditions-ℹ️">ℹ️ Weather Conditions ℹ️<a href="#ℹ️-weather-conditions-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Weather Conditions ℹ️" title="Direct link to ℹ️ Weather Conditions ℹ️">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="-rain-and-snow-">🤖 Rain and Snow 🤖<a href="#-rain-and-snow-" class="hash-link" aria-label="Direct link to 🤖 Rain and Snow 🤖" title="Direct link to 🤖 Rain and Snow 🤖">​</a></h4>
+<ul>
+<li>LiDAR: Reduced range due to particle scattering</li>
+<li>Cameras: Degraded visibility, water drops on lenses</li>
+<li>IMU: Generally unaffected</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-fog-and-dust-ℹ️">ℹ️ Fog and Dust ℹ️<a href="#ℹ️-fog-and-dust-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Fog and Dust ℹ️" title="Direct link to ℹ️ Fog and Dust ℹ️">​</a></h4>
+<ul>
+<li>Significant reduction in LiDAR range</li>
+<li>Severe impact on camera visibility</li>
+<li>Enhanced effect for both sensors in dust storms</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-lighting-ℹ️">ℹ️ Lighting ℹ️<a href="#ℹ️-lighting-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Lighting ℹ️" title="Direct link to ℹ️ Lighting ℹ️">​</a></h4>
+<ul>
+<li>Direct sunlight causing lens flare</li>
+<li>Low light conditions affecting camera performance</li>
+<li>Glare from wet surfaces</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-temperature-ℹ️">ℹ️ Temperature ℹ️<a href="#ℹ️-temperature-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Temperature ℹ️" title="Direct link to ℹ️ Temperature ℹ️">​</a></h4>
+<ul>
+<li>Sensor calibration drift</li>
+<li>Condensation on optical surfaces</li>
+<li>Electronic noise at extreme temperatures</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-motion-and-vibrations-ℹ️">ℹ️ Motion and Vibrations ℹ️<a href="#ℹ️-motion-and-vibrations-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Motion and Vibrations ℹ️" title="Direct link to ℹ️ Motion and Vibrations ℹ️">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="-robot-induced-vibrations-">🤖 Robot-Induced Vibrations 🤖<a href="#-robot-induced-vibrations-" class="hash-link" aria-label="Direct link to 🤖 Robot-Induced Vibrations 🤖" title="Direct link to 🤖 Robot-Induced Vibrations 🤖">​</a></h4>
+<ul>
+<li>Affecting accelerometer and gyroscope measurements</li>
+<li>Potentially blurring camera images</li>
+<li>Averaging techniques to reduce effect</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="-dynamic-environments-">🌍 Dynamic Environments 🌍<a href="#-dynamic-environments-" class="hash-link" aria-label="Direct link to 🌍 Dynamic Environments 🌍" title="Direct link to 🌍 Dynamic Environments 🌍">​</a></h4>
+<ul>
+<li>Moving objects affecting static assumptions</li>
+<li>Occlusions changing rapidly</li>
+<li>Need for higher update rates</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-electromagnetic-interference-ℹ️">ℹ️ Electromagnetic Interference ℹ️<a href="#ℹ️-electromagnetic-interference-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Electromagnetic Interference ℹ️" title="Direct link to ℹ️ Electromagnetic Interference ℹ️">​</a></h3>
+<ul>
+<li>Effects on magnetometer measurements</li>
+<li>Potential radio frequency interference</li>
+<li>Cable routing and shielding considerations</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-sensor-integration-in-robotics-systems-">🤖 Sensor Integration in Robotics Systems 🤖<a href="#-sensor-integration-in-robotics-systems-" class="hash-link" aria-label="Direct link to 🤖 Sensor Integration in Robotics Systems 🤖" title="Direct link to 🤖 Sensor Integration in Robotics Systems 🤖">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-hardware-considerations-ℹ️">ℹ️ Hardware Considerations ℹ️<a href="#ℹ️-hardware-considerations-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Hardware Considerations ℹ️" title="Direct link to ℹ️ Hardware Considerations ℹ️">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-mounting-ℹ️">ℹ️ Mounting ℹ️<a href="#ℹ️-mounting-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Mounting ℹ️" title="Direct link to ℹ️ Mounting ℹ️">​</a></h4>
+<ul>
+<li>Strategic positioning for optimal coverage</li>
+<li>Minimizing occlusion of one sensor by another</li>
+<li>Considering the robot&#x27;s own movements and structures</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-wiring-and-communication-ℹ️">ℹ️ Wiring and Communication ℹ️<a href="#ℹ️-wiring-and-communication-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Wiring and Communication ℹ️" title="Direct link to ℹ️ Wiring and Communication ℹ️">​</a></h4>
+<ul>
+<li>Robust connections in dynamic environments</li>
+<li>Appropriate communication protocols (CAN, Ethernet, serial)</li>
+<li>Power supply considerations for multiple sensors</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-protection-ℹ️">ℹ️ Protection ℹ️<a href="#ℹ️-protection-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Protection ℹ️" title="Direct link to ℹ️ Protection ℹ️">​</a></h4>
+<ul>
+<li>Environmental sealing for outdoor operations</li>
+<li>Shock and vibration resistance</li>
+<li>Cleaning systems for optical sensors</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="️-software-architecture-️">🏗️ Software Architecture 🏗️<a href="#️-software-architecture-️" class="hash-link" aria-label="Direct link to 🏗️ Software Architecture 🏗️" title="Direct link to 🏗️ Software Architecture 🏗️">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="-modular-design-">🎨 Modular Design 🎨<a href="#-modular-design-" class="hash-link" aria-label="Direct link to 🎨 Modular Design 🎨" title="Direct link to 🎨 Modular Design 🎨">​</a></h4>
+<ul>
+<li>Encapsulation of sensor interfaces</li>
+<li>Standardized data formats and timestamps</li>
+<li>Easy replacement or addition of sensors</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="-processing-pipelines-">🧠 Processing Pipelines 🧠<a href="#-processing-pipelines-" class="hash-link" aria-label="Direct link to 🧠 Processing Pipelines 🧠" title="Direct link to 🧠 Processing Pipelines 🧠">​</a></h4>
+<ul>
+<li>Optimized data flow for real-time constraints</li>
+<li>Parallel processing where possible</li>
+<li>Appropriate buffering strategies</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-error-handling-ℹ️">ℹ️ Error Handling ℹ️<a href="#ℹ️-error-handling-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Error Handling ℹ️" title="Direct link to ℹ️ Error Handling ℹ️">​</a></h4>
+<ul>
+<li>Detection of sensor failures or degradation</li>
+<li>Graceful degradation when sensors fail</li>
+<li>Redundancy for critical measurements</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-chapter-summary-">📝 Chapter Summary 📝<a href="#-chapter-summary-" class="hash-link" aria-label="Direct link to 📝 Chapter Summary 📝" title="Direct link to 📝 Chapter Summary 📝">​</a></h2>
+<p>This chapter has covered the fundamental sensors used in humanoid robotics: LiDAR, cameras, and IMUs. Each sensor type offers unique advantages and faces specific limitations:</p>
+<ul>
+<li><strong>LiDAR</strong> provides accurate depth information but can be expensive and affected by weather</li>
+<li><strong>Cameras</strong> deliver rich visual information but are sensitive to lighting conditions</li>
+<li><strong>IMUs</strong> offer high-frequency motion data but suffer from drift</li>
+</ul>
+<p>Successful robotic systems typically employ sensor fusion techniques to combine these complementary sensing modalities, achieving more robust and accurate perception than any single sensor could provide.</p>
+<p>Key considerations for sensor selection and integration include:</p>
+<ul>
+<li>Task requirements and environmental constraints</li>
+<li>Computational and power limitations</li>
+<li>Cost and reliability considerations</li>
+<li>Data fusion approaches to combine sensor information</li>
+</ul>
+<p>Understanding these sensor technologies is essential for developing effective physical AI systems that can perceive and interact with the world robustly.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-knowledge-check-">🤔 Knowledge Check    🤔<a href="#-knowledge-check-" class="hash-link" aria-label="Direct link to 🤔 Knowledge Check 🤔" title="Direct link to 🤔 Knowledge Check 🤔">​</a></h2>
+<ol>
+<li>Compare and contrast the advantages and limitations of LiDAR, cameras, and IMUs for robotic perception.</li>
+<li>Explain the principle behind LiDAR time-of-flight measurement.</li>
+<li>Why do IMUs suffer from drift, and how is this typically addressed in robotic systems?</li>
+<li>Describe three different sensor fusion techniques and their appropriate applications.</li>
+<li>What are the key challenges of using cameras for perception in robotics?</li>
+<li>How do environmental factors (weather, lighting, vibrations) affect different sensor types?</li>
+<li>Explain the concept of sensor data association and why it&#x27;s important in multi-sensor systems.</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="ℹ️-practical-exercise-ℹ️">ℹ️ Practical Exercise ℹ️<a href="#ℹ️-practical-exercise-ℹ️" class="hash-link" aria-label="Direct link to ℹ️ Practical Exercise ℹ️" title="Direct link to ℹ️ Practical Exercise ℹ️">​</a></h3>
+<p>Using the ROS 2 ecosystem, implement a simple sensor fusion node that combines IMU and barometer data to estimate altitude. Discuss the advantages of this fusion approach over using either sensor alone.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-discussion-questions-">💬 Discussion Questions 💬<a href="#-discussion-questions-" class="hash-link" aria-label="Direct link to 💬 Discussion Questions 💬" title="Direct link to 💬 Discussion Questions 💬">​</a></h3>
+<ol>
+<li>How might the selection of sensors differ for a humanoid robot designed for indoor use versus outdoor exploration?</li>
+<li>What are the challenges of calibrating sensor systems on a humanoid robot that experiences joint movement?</li>
+<li>How might 5G or edge computing technologies impact the processing of data from multiple sensors on humanoid robots?</li>
+</ol></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="theme-doc-footer-tags-row row margin-bottom--sm"><div class="col"><b>Tags:</b><ul class="tags_jXut padding--none margin-left--sm"><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/Humanoid-Robotic-Book/docs/tags/sensors">sensors</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/Humanoid-Robotic-Book/docs/tags/perception">perception</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/Humanoid-Robotic-Book/docs/tags/lidar">lidar</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/Humanoid-Robotic-Book/docs/tags/cameras">cameras</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/Humanoid-Robotic-Book/docs/tags/imus">imus</a></li><li class="tag_QGVx"><a class="tag_zVej tagRegular_sFm0" href="/Humanoid-Robotic-Book/docs/tags/robotics">robotics</a></li></ul></div></div><div class="theme-doc-footer-edit-meta-row row"><div class="col"><a href="https://github.com/aamna847/Humanoid-Robotic-Book/edit/main/docusaurus/docs/part-1-foundations/chapter-2-sensors-perception.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_vwxv"></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/Humanoid-Robotic-Book/docs/part-1-foundations/chapter-1-introduction-to-physical-ai"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Chapter 1 - Introduction to Physical AI &amp; Embodied Intelligence</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/Humanoid-Robotic-Book/docs/part-2-nervous-system/chapter-3-ros2-architecture-core-concepts"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Chapter 3 - ROS 2 Architecture &amp; Core Concepts</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#--learning-objectives-" class="table-of-contents__link toc-highlight">🎯 🎯 Learning Objectives 🎯</a></li><li><a href="#--table-of-contents-" class="table-of-contents__link toc-highlight">📋 📋 Table of Contents 📋</a></li><li><a href="#-introduction-to-robot-sensors-" class="table-of-contents__link toc-highlight">👋 Introduction to Robot Sensors 👋</a><ul><li><a href="#ℹ️-sensor-classification-ℹ️" class="table-of-contents__link toc-highlight">ℹ️ Sensor Classification ℹ️</a></li><li><a href="#-sensor-performance-metrics-" class="table-of-contents__link toc-highlight">📈 Sensor Performance Metrics 📈</a></li></ul></li><li><a href="#-lidar-technology-" class="table-of-contents__link toc-highlight">📡 LiDAR Technology 📡</a><ul><li><a href="#ℹ️-working-principle-ℹ️" class="table-of-contents__link toc-highlight">ℹ️ Working Principle ℹ️</a></li><li><a href="#-types-of-lidar-systems-" class="table-of-contents__link toc-highlight">📡 Types of LiDAR Systems 📡</a></li><li><a href="#-applications-in-robotics-" class="table-of-contents__link toc-highlight">🤖 Applications in Robotics 🤖</a></li><li><a href="#-advantages-of-lidar-" class="table-of-contents__link toc-highlight">📡 Advantages of LiDAR 📡</a></li><li><a href="#-limitations-of-lidar-" class="table-of-contents__link toc-highlight">📡 Limitations of LiDAR 📡</a></li><li><a href="#-lidar-data-processing-" class="table-of-contents__link toc-highlight">📡 LiDAR Data Processing 📡</a></li></ul></li><li><a href="#️-computer-vision--cameras-️" class="table-of-contents__link toc-highlight">👁️ Computer Vision &amp; Cameras 👁️</a><ul><li><a href="#-camera-types-and-characteristics-" class="table-of-contents__link toc-highlight">✅ Camera Types and Characteristics ✅</a></li><li><a href="#-image-processing-fundamentals-" class="table-of-contents__link toc-highlight">🧠 Image Processing Fundamentals 🧠</a></li><li><a href="#-applications-in-robotics--1" class="table-of-contents__link toc-highlight">🤖 Applications in Robotics 🤖</a></li><li><a href="#-advantages-of-camera-sensors-" class="table-of-contents__link toc-highlight">📡 Advantages of Camera Sensors 📡</a></li><li><a href="#-limitations-of-camera-sensors-" class="table-of-contents__link toc-highlight">📡 Limitations of Camera Sensors 📡</a></li><li><a href="#-deep-learning-in-visual-perception-" class="table-of-contents__link toc-highlight">🎯 Deep Learning in Visual Perception 🎯</a></li></ul></li><li><a href="#️-inertial-measurement-units-imus-️" class="table-of-contents__link toc-highlight">⚖️ Inertial Measurement Units (IMUs) ⚖️</a><ul><li><a href="#️-imu-components-️" class="table-of-contents__link toc-highlight">⚖️ IMU Components ⚖️</a></li><li><a href="#️-imu-outputs-and-processing-️" class="table-of-contents__link toc-highlight">⚖️ IMU Outputs and Processing ⚖️</a></li><li><a href="#-applications-in-robotics--2" class="table-of-contents__link toc-highlight">🤖 Applications in Robotics 🤖</a></li><li><a href="#-imu-fusion-with-other-sensors-" class="table-of-contents__link toc-highlight">📡 IMU Fusion with Other Sensors 📡</a></li><li><a href="#️-advantages-of-imus-️" class="table-of-contents__link toc-highlight">⚖️ Advantages of IMUs ⚖️</a></li><li><a href="#️-limitations-of-imus-️" class="table-of-contents__link toc-highlight">⚖️ Limitations of IMUs ⚖️</a></li></ul></li><li><a href="#-sensor-fusion-" class="table-of-contents__link toc-highlight">🔗 Sensor Fusion 🔗</a><ul><li><a href="#-fusion-approaches-" class="table-of-contents__link toc-highlight">🔗 Fusion Approaches 🔗</a></li><li><a href="#-multi-sensor-integration-" class="table-of-contents__link toc-highlight">🔗 Multi-Sensor Integration 🔗</a></li><li><a href="#-fusion-applications-in-physical-ai-" class="table-of-contents__link toc-highlight">🤖 Fusion Applications in Physical AI 🤖</a></li></ul></li><li><a href="#-environmental-factors--sensor-performance-" class="table-of-contents__link toc-highlight">📈 Environmental Factors &amp; Sensor Performance 📈</a><ul><li><a href="#ℹ️-weather-conditions-ℹ️" class="table-of-contents__link toc-highlight">ℹ️ Weather Conditions ℹ️</a></li><li><a href="#ℹ️-motion-and-vibrations-ℹ️" class="table-of-contents__link toc-highlight">ℹ️ Motion and Vibrations ℹ️</a></li><li><a href="#ℹ️-electromagnetic-interference-ℹ️" class="table-of-contents__link toc-highlight">ℹ️ Electromagnetic Interference ℹ️</a></li></ul></li><li><a href="#-sensor-integration-in-robotics-systems-" class="table-of-contents__link toc-highlight">🤖 Sensor Integration in Robotics Systems 🤖</a><ul><li><a href="#ℹ️-hardware-considerations-ℹ️" class="table-of-contents__link toc-highlight">ℹ️ Hardware Considerations ℹ️</a></li><li><a href="#️-software-architecture-️" class="table-of-contents__link toc-highlight">🏗️ Software Architecture 🏗️</a></li></ul></li><li><a href="#-chapter-summary-" class="table-of-contents__link toc-highlight">📝 Chapter Summary 📝</a></li><li><a href="#-knowledge-check-" class="table-of-contents__link toc-highlight">🤔 Knowledge Check 🤔</a><ul><li><a href="#ℹ️-practical-exercise-ℹ️" class="table-of-contents__link toc-highlight">ℹ️ Practical Exercise ℹ️</a></li><li><a href="#-discussion-questions-" class="table-of-contents__link toc-highlight">💬 Discussion Questions 💬</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/Humanoid-Robotic-Book/docs/introduction">Introduction</a></li><li class="footer__item"><a class="footer__link-item" href="/Humanoid-Robotic-Book/docs/part-1-foundations/chapter-1-introduction-to-physical-ai">Physical AI Foundations</a></li><li class="footer__item"><a class="footer__link-item" href="/Humanoid-Robotic-Book/docs/part-2-nervous-system/chapter-3-ros2-architecture-core-concepts">ROS 2 Fundamentals</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://stackoverflow.com/questions/tagged/humanoid-robotics" target="_blank" rel="noopener noreferrer" class="footer__link-item">Stack Overflow<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://discordapp.com/invite/humanoid-robotics" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/aamna847/Humanoid-Robotic-Book" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Humanoid Robotics. Built with ❤️ by Aamna Rana</div></div></div></footer></div>
+</body>
+</html>
