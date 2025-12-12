@@ -4,7 +4,7 @@ module.exports = {
   title: 'Physical AI & Humanoid Robotics',
   tagline: 'Bridging the gap between digital AI and the physical world',
   url: 'https://aamna847.github.io',
-  baseUrl: '/Humanoid-Robotic-Book/',
+  baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
